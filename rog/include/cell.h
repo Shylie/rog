@@ -3,18 +3,20 @@
 
 #include "coordinate.h"
 
+#include <cstdint>
+
 namespace rog
 {
 	class Cell
 	{
 	public:
 		inline Cell() : Cell(' ', 0) { }
-		Cell(int, unsigned char = 0);
+		Cell(int, uint8_t = 0);
 
 		void Put(Coordinate, Coordinate) const;
 
 		int glyph;
-		unsigned char height;
+		uint8_t height;
 	};
 }
 

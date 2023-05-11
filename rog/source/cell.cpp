@@ -6,7 +6,7 @@
 
 namespace rog
 {
-	Cell::Cell(int glyph, unsigned char height) :
+	Cell::Cell(int glyph, uint8_t height) :
 		glyph(glyph),
 		height(height)
 	{ }
