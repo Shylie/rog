@@ -13,7 +13,7 @@ namespace rog
 
 	void Cell::Put(Coordinate me, Coordinate vanish) const
 	{
-		constexpr float distanceScale = 5.0f;
+		constexpr float distanceScale = 25.0f;
 
 		const float angle = me.Angle(vanish);
 		const float distance = me.Distance(vanish);
