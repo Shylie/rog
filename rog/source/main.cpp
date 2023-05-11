@@ -6,6 +6,10 @@
 
 using namespace rog;
 
+constexpr int WWIDTH = 25;
+constexpr int WHEIGHT = 25;
+constexpr int NUM_CELLS = WWIDTH * WHEIGHT;
+
 int main(int argc, char** argv)
 {
 	if (!terminal_open())
@@ -13,24 +17,21 @@ int main(int argc, char** argv)
 		return -1;
 	}
 
-	terminal_set("terminal.encoding=437; window.cellsize=16x16;");
+	terminal_setf("terminal.encoding=437; window.cellsize=16x16; window.size=%dx%d;", WWIDTH, WHEIGHT);
 
-	Cell cells[80*25];
-	Coordinate pc(40, 12);
-	Camera cam(80, 25);
+	Cell cells[NUM_CELLS];
+	Coordinate pc(WWIDTH / 2, WHEIGHT / 2);
+	Camera cam(WWIDTH, WHEIGHT);
 
-	for (int i = 0; i < 80 * 25; i++)
+	for (int i = 0; i < NUM_CELLS; i++)
 	{
-		if (i % 7 == 0)
-		{
-			cells[i].glyph = 0xB2;
-			cells[i].height = rand() % 256;
-		}
+		cells[i].glyph = 0xB2;
+		cells[i].height = rand() % 256;
 	}
 
 	const auto& put = [&](Coordinate c) -> void
 	{
-		cells[c.x + c.y * 25].Put(c, pc);
+		cells[c.x + c.y * WWIDTH].Put(c, pc);
 	};
 
 	const auto& draw = [&]() -> void
@@ -60,7 +61,7 @@ int main(int argc, char** argv)
 			break;
 
 		case TK_S:
-			if (pc.y < 24)
+			if (pc.y < WHEIGHT - 1)
 			{
 				pc += { 0, 1 };
 				draw();
@@ -76,7 +77,7 @@ int main(int argc, char** argv)
 			break;
 
 		case TK_D:
-			if (pc.x < 79)
+			if (pc.x < WWIDTH - 1)
 			{
 				pc += { 1, 0 };
 				draw();
